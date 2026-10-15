@@ -1,0 +1,22 @@
+[
+  {
+    "viewport": "1440x1000",
+    "checks": "PASS: opening transition, scroll reveals, opening bounds, 5 milestones, 3 detail groups, 10 photos, no horizontal overflow, no broken images, no timeline overlaps, gallery navigation, RSVP and gift placeholders, no runtime errors"
+  },
+  {
+    "viewport": "390x844",
+    "checks": "PASS: opening transition, scroll reveals, opening bounds, 5 milestones, 3 detail groups, 10 photos, no horizontal overflow, no broken images, no timeline overlaps, gallery navigation, RSVP and gift placeholders, no runtime errors"
+  },
+  {
+    "viewport": "320x740",
+    "checks": "PASS: opening transition, scroll reveals, opening bounds, 5 milestones, 3 detail groups, 10 photos, no horizontal overflow, no broken images, no timeline overlaps, gallery navigation, RSVP and gift placeholders, no runtime errors"
+  },
+  {
+    "viewport": "768x1024",
+    "checks": "PASS: opening transition, scroll reveals, opening bounds, 5 milestones, 3 detail groups, 10 photos, no horizontal overflow, no broken images, no timeline overlaps, gallery navigation, RSVP and gift placeholders, no runtime errors"
+  },
+  {
+    "mode": "prefers-reduced-motion",
+    "checks": "PASS: immediate opening, no hero animation, visible story"
+  }
+]

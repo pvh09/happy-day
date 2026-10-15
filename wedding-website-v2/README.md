@@ -39,3 +39,18 @@ Hiện tại **không tự gán ngày cưới, địa điểm hoặc thông tin 
 ## Phase kế tiếp
 
 Phase 2: Nâng cấp phong bì mở ba bước có transition, hỗ trợ reduced motion và trạng thái mở phù hợp trình duyệt di động.
+
+## Phase 1.1 — Visual rebuild
+
+Bản này bổ sung artwork phong bì/dấu sáp có chất liệu, botanical SVG, timeline Bézier desktop/mobile, ba nhóm thông tin và gallery editorial. Giữ nguyên dữ liệu và trạng thái RSVP/quà cưới từ Phase 1.
+
+Mở thiệp có dissolve và hero xuất hiện tuần tự; các khối hiện nhẹ khi cuộn. Tôn trọng `prefers-reduced-motion`. Chi tiết đối chiếu, các giới hạn và ảnh kiểm chứng nằm trong `docs/phase-1.1-visual-review.md` và `screenshots/`.
+
+Sau khi pull code mới, chạy:
+
+```bash
+npm ci
+npm run dev
+```
+
+Nếu dev server đang chạy bản cũ, dừng bằng Ctrl+C rồi chạy lại. File `src/vite-env.d.ts` cung cấp khai báo kiểu Vite cho CSS import.

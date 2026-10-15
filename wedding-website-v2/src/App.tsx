@@ -1,0 +1,38 @@
+import { useState } from 'react';
+import { CalendarDays, Heart, MapPin, Menu, X, ArrowDown, Gift, Mail, ChevronLeft, ChevronRight } from 'lucide-react';
+import { weddingData as w } from './weddingData';
+
+const links = [ ['#story', 'Hành trình yêu thương'], ['#events', 'Lịch cưới'], ['#rsvp', 'Xác nhận tham dự'], ['#gallery', 'Album ảnh'] ] as const;
+const SectionTitle = ({ eyebrow, children }: { eyebrow?: string, children: React.ReactNode }) => <div className="section-heading">{eyebrow && <span className="eyebrow">{eyebrow}</span>}<h2>{children}</h2><span className="heart-divider">♡ <span>♥</span> ♡</span></div>;
+
+export default function App() {
+  const [opened, setOpened] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
+  const [photo, setPhoto] = useState<number | null>(null);
+  const [rsvpOpen, setRsvpOpen] = useState(false);
+  const [giftOpen, setGiftOpen] = useState(false);
+  const closeNav = () => setNavOpen(false);
+  return <>
+    {!opened && <div className="opening" aria-label="Màn mở thiệp">
+      <div className="opening-flower flower-left" aria-hidden="true">✿</div><div className="opening-flower flower-right" aria-hidden="true">❀</div>
+      <div className="opening-inner"><p className="eyebrow">TRÂN TRỌNG KÍNH MỜI</p><h1>{w.couple.groom}<span>&</span>{w.couple.bride}</h1><span className="heart-divider">━━ ♥ ━━</span><p className="opening-subtitle">Wedding Invitation</p>
+        <button className="envelope" onClick={() => setOpened(true)} aria-label="Chạm để mở thiệp"><span className="envelope-back"/><span className="envelope-card">LOVE & JOY<br/><small>YOU'RE INVITED</small></span><span className="envelope-flap"/><span className="envelope-bottom"/><span className="wax">LV<br/>TT</span></button>
+        <button className="open-action" onClick={() => setOpened(true)}><Heart size={17} fill="currentColor"/> Chạm để mở thiệp</button><p className="opening-note">Một lời mời nhỏ gửi đến người thương mến</p>
+      </div>
+    </div>}
+    <div className="site-shell">
+      <header className="site-header"><a className="brand" href="#home" onClick={closeNav}>LV<span>♥</span>TT</a><nav className={navOpen ? 'nav open' : 'nav'} aria-label="Menu chính">{links.map(([href, name]) => <a href={href} key={href} onClick={closeNav}>{name}</a>)}</nav><button className="icon-button mobile-menu" aria-label={navOpen ? 'Đóng menu' : 'Mở menu'} onClick={() => setNavOpen(!navOpen)}>{navOpen ? <X/> : <Menu/>}</button><Heart className="header-heart" size={19}/></header>
+      <main>
+        <section id="home" className="hero"><div className="hero-photo"/><div className="hero-shade"/><div className="hero-copy"><p className="eyebrow">THE WEDDING OF</p><h1>{w.couple.groom} <span>&</span><br/>{w.couple.bride}</h1><span className="hero-rule">━━━━ <span>♥</span> ━━━━</span><p className="hero-invitation">Hạnh phúc khi có bạn cùng chung vui</p><a href="#story" className="scroll-hint">Khám phá câu chuyện của chúng mình <ArrowDown size={16}/></a></div></section>
+        <section id="story" className="story-section content-section"><SectionTitle eyebrow="OUR LOVE STORY">Hành trình yêu thương</SectionTitle><p className="section-intro">{w.storyIntro}</p><div className="journey"><div className="journey-line" aria-hidden="true"/>{w.milestones.map((m, i) => <article className="milestone" key={m.title}><div className="photo-frame"><img src={m.image} alt={m.title} loading="lazy"/></div><span className="milestone-heart" aria-hidden="true">♥</span><div className="milestone-copy"><span className="milestone-date">{m.date}</span><h3>{m.title}</h3><p>{m.description}</p></div><span className="milestone-index">0{i + 1}</span></article>)}</div></section>
+        <section id="events" className="events-section content-section"><SectionTitle eyebrow="SAVE THE DATE">Thông tin lễ cưới</SectionTitle><p className="section-intro">{w.invitation}</p><div className="event-grid">{w.events.map((e, i) => <article className="event-card" key={e.title}><div className="event-icon">{i % 2 === 0 ? <CalendarDays/> : <MapPin/>}</div><h3>{e.title}</h3><p className="event-date">{e.time}</p><p>{e.venue}</p>{e.address && <p>{e.address}</p>}{e.mapUrl ? <a className="text-link" href={e.mapUrl} target="_blank" rel="noopener noreferrer">Xem bản đồ ↗</a> : <span className="event-unavailable">Bản đồ sẽ bổ sung sau</span>}</article>)}</div></section>
+        <section id="rsvp" className="rsvp-section content-section"><div className="decor-flower decor-left" aria-hidden="true">✿</div><div className="decor-flower decor-right" aria-hidden="true">✿</div><SectionTitle eyebrow="KINDLY REPLY">Xác nhận tham dự</SectionTitle><p>Niềm vui sẽ trọn vẹn hơn khi có sự hiện diện của bạn.</p><button className="primary-button" onClick={() => setRsvpOpen(true)}>XÁC NHẬN THAM DỰ</button></section>
+        <section id="gallery" className="gallery-section content-section"><SectionTitle eyebrow="OUR MEMORIES">Album ảnh cưới</SectionTitle><p className="section-intro">Những khoảnh khắc dịu dàng mà chúng mình muốn lưu giữ mãi.</p><div className="gallery-grid">{w.gallery.map((src, i) => <button className="gallery-item" key={src} onClick={() => setPhoto(i)} aria-label={`Xem ảnh cưới ${i + 1}`}><img src={src} loading="lazy" alt={`Ảnh cưới ${i + 1}`} /></button>)}</div></section>
+        <section className="closing-section content-section"><Mail size={30} strokeWidth={1.2}/><SectionTitle>Lời cảm ơn</SectionTitle><p>Cảm ơn bạn đã luôn yêu thương, đồng hành và dành những lời chúc tốt đẹp cho chúng mình.</p><button className="outline-button" onClick={() => setGiftOpen(true)}><Gift size={16}/> Thông tin mừng cưới</button><p className="closing-name">{w.couple.groom} & {w.couple.bride}</p></section>
+      </main><footer>Made with ♡ · Wedding Website V2</footer>
+    </div>
+    {photo !== null && <div className="modal-backdrop" role="dialog" aria-modal="true" aria-label="Xem ảnh cưới" onClick={() => setPhoto(null)}><button className="modal-close" onClick={() => setPhoto(null)} aria-label="Đóng ảnh"><X/></button><button className="photo-nav photo-prev" onClick={e => {e.stopPropagation();setPhoto((photo + w.gallery.length - 1) % w.gallery.length)}} aria-label="Ảnh trước"><ChevronLeft/></button><img className="modal-photo" src={w.gallery[photo]} alt={`Ảnh cưới ${photo + 1}`} onClick={e => e.stopPropagation()}/><button className="photo-nav photo-next" onClick={e => {e.stopPropagation();setPhoto((photo + 1) % w.gallery.length)}} aria-label="Ảnh sau"><ChevronRight/></button><span className="photo-counter">{photo + 1} / {w.gallery.length}</span></div>}
+    {rsvpOpen && <div className="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="rsvp-title" onClick={() => setRsvpOpen(false)}><div className="info-modal" onClick={e => e.stopPropagation()}><button className="info-close" onClick={() => setRsvpOpen(false)} aria-label="Đóng"><X size={20}/></button><Heart color="#c9818e"/><h2 id="rsvp-title">Xác nhận tham dự</h2><p>Giao diện đã sẵn sàng. Tính năng gửi và lưu xác nhận sẽ được kết nối trong Phase 4.</p><span className="phase-tag">CHƯA KÍCH HOẠT LƯU DỮ LIỆU</span></div></div>}
+    {giftOpen && <div className="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="gift-title" onClick={() => setGiftOpen(false)}><div className="info-modal" onClick={e => e.stopPropagation()}><button className="info-close" onClick={() => setGiftOpen(false)} aria-label="Đóng"><X size={20}/></button><Gift color="#c9818e"/><h2 id="gift-title">Mừng cưới</h2><p>Thông tin tài khoản và mã QR chưa được cung cấp nên đang để trống.</p><span className="phase-tag">CHỜ NỘI DUNG CHÍNH THỨC</span></div></div>}
+  </>;
+}
